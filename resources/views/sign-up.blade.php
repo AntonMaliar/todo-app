@@ -3,22 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/welcome.css')}}">
-    <title>User Sign Up</title>
+    <link rel="stylesheet" href="{{asset('css/sign-up.css')}}">
+    <title>Sign Up</title>
 </head>
 <body>
-    <header>
-        <h1>User Sign Up</h1>
-    </header>
     <div class="container">
-        <form>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" required>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
-
-            <button type="submit" class="button">Sign Up</button>
+        <h1>Create an Account</h1>
+        <form class="signup-form" action="/sign-up" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                @if ($errors->has('username'))
+                    <p class="error-message">{{$errors->first('username')}}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <!-- Add a similar block for password error if needed -->
+            </div>
+            <button type="submit" class="signup-button">Sign Up</button>
         </form>
     </div>
 </body>

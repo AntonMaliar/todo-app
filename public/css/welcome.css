@@ -1,57 +1,42 @@
-/* Add this to your styles.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
     margin: 0;
     padding: 0;
-}
-
-header {
-    background-color: #3498db;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 36px;
-    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f6f8fa;
 }
 
 .container {
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 50px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-p {
-    font-size: 18px;
-    margin: 0;
+h1 {
+    color: #0366d6;
+    margin-bottom: 30px;
 }
 
-a {
-    text-decoration: none;
-    color: #3498db;
+.btn-container {
+    display: flex;
+    justify-content: center;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: #fff;
+.btn {
+    padding: 15px 30px;
+    background-color: #0366d6;
+    color: #ffffff;
     text-decoration: none;
     border-radius: 5px;
-    margin-right: 10px;
-    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
 }
 
-.button:hover {
-    background-color: #1e87d5;
+.btn:hover {
+    background-color: #054b8b;
 }
