@@ -17,10 +17,9 @@ class RegisterController extends Controller
         //encrype password before store to DB
         $password = Hash::make($request->password);
 
-        $user = new User(
-            $username,
-            $password
-        );
+        $user = new User();
+        $user->username = $username;
+        $user->password = $password;
 
         $user->save();
 

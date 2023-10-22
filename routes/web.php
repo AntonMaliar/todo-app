@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -22,5 +23,9 @@ Route::view('/log-in', 'log-in');
 
 Route::view('/sign-up', 'sign-up');
 
+Route::view('/profile', 'profile');
+
 //check if user exesist and than store user in data base
 Route::post('/sign-up', [RegisterController::class, 'register']);
+
+Route::post('/log-in', [LoginController::class, 'login']);
