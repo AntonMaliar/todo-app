@@ -61,7 +61,7 @@ li {
     margin-bottom: 10px;
 }
 
-.add-task-button {
+.profile-button {
     padding: 10px 20px;
     background-color: #0074e4;
     color: #ffffff;
@@ -70,8 +70,9 @@ li {
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
+    margin: 10px;
 }
 
-.add-task-button:hover {
+.profile-button:hover {
     background-color: #0052b2;
 }

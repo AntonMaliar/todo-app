@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{asset('css/profile.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <title>User Profile</title>
 </head>
 <body>
@@ -12,7 +12,9 @@
         <div class="profile-info">
             <div class="form-group">
                 <label for="username">Username:</label>
-                <span id="username">{{$username}}</span>
+                @if($user)
+                    <span id="username">{{$user->name}}</span>
+                @endif
             </div>
         </div>
         <div class="task-list">
@@ -23,7 +25,8 @@
                 <li>Task 3</li>
             </ul>
         </div>
-        <button id="add-task-button" class="add-task-button">Add Task</button>
+        <button id="add-task-button" class="profile-button">Add Task</button>
+        <button id="edit-profile-button" class="profile-button">Edit Profile</button>
     </div>
 </body>
 </html>
