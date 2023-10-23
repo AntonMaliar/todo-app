@@ -16,20 +16,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+require __DIR__.'../auth/auth.php';
+require __DIR__.'../user/user.php';
 
 Route::view('/', 'welcome');
-
-Route::view('/log-in', 'log-in')->name('login');
-
-Route::view('/sign-up', 'sign-up');
-
-//after login must redirect to profile user must be saved in session
-Route::get('/profile/{id}', function(){
-    // Get the authenticated user
-    $user = auth()->user(); // This will get the currently authenticated user
-    return view('profile', ['user' => $user]);
-})->middleware('auth');
-
-Route::post('/sign-up', [RegisterController::class, 'register']);
-
-Route::post('/log-in', [LoginController::class, 'login']);
