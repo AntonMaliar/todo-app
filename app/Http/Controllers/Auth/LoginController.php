@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -16,11 +17,9 @@ class LoginController extends Controller
         if(Auth::attempt([
             'name'=>$username,
             'password'=>$password])) {
-            //get user and pass it to view (or get user from session)
-            
-            //$user = User::where('column_name', $username)->first();
-
-            return view('profile', ['username'=> $username]);
+            //get user id from session
+            $userId = auth()->id();
+            return redirect('/profile/'.$userId);
         }else {
             
             return back()->with('loginError', 'You input incorrect username or password');
