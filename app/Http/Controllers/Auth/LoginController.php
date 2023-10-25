@@ -19,7 +19,7 @@ class LoginController extends Controller
             'password'=>$password])) {
             //get user id from session
             $userId = auth()->id();
-            return redirect('/profile/'.$userId);
+            return redirect('/profile');
         }else {
             
             return back()->with('loginError', 'You input incorrect username or password');
