@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,10 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'../auth/auth.php';
 require __DIR__.'../user/user.php';
 
-Route::view('/', 'welcome');
+Route::get('/', function() {
+    if(Auth::check()) {
+        return redirect('/profile');
+    }else {
+        return view('welcome');
+    }
+});
