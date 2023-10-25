@@ -26,7 +26,9 @@
             </ul>
         </div>
         <button id="add-task-button" class="profile-button">Add Task</button>
-        <button id="edit-profile-button" class="profile-button">Edit Profile</button>
+        <a href="/edit-profile">
+            <button id="edit-profile-button" class="profile-button">Edit Profile</button>
+        </a>
     </div>
 </body>
 </html>
