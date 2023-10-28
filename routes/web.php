@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'../auth/auth.php';
 require __DIR__.'../user/user.php';
 require __DIR__.'../user/task.php';
+require __DIR__.'../user/sub-task.php';
 
 Route::get('/', function() {
     if(Auth::check()) {
