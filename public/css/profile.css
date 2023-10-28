@@ -1,11 +1,11 @@
-body {
-    font-family: Arial, sans-serif;
+/* Reset default margin and padding */
+body, h1, h2, ul, li, p {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+}
+
+body {
+    font-family: Arial, sans-serif;
     background-color: #f7f7f7;
 }
 
@@ -41,27 +41,107 @@ label {
     font-weight: bold;
 }
 
+/* General Button Styles */
+.button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-right: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button:hover {
+    background-color: #0052b2;
+    color: #fff;
+}
+
+/* Specific Button Styles */
+.create-task-button,
+.edit-profile-button {
+    background-color: #0074e4;
+    color: #ffffff;
+}
+
+/* Styles for task list items */
 .task-list {
     text-align: left;
     margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
 }
 
-h2 {
+.task-list h2 {
     color: #333;
     margin-bottom: 10px;
 }
 
-ul {
+.task-list ul {
     list-style-type: none;
     padding: 0;
 }
 
-li {
-    color: #333;
+.task-list li {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.profile-button {
+.task-title {
+    color: #333;
+    font-weight: bold;
+}
+
+/* Styles for in-progress tasks */
+.in-progress-task {
+    background-color: #F4D03F; /* Yellow */
+}
+
+.in-progress-task .task-title {
+    color: #3498DB; /* Blue */
+}
+
+.in-progress-task .complete-task-button {
+    display: block;
+}
+
+/* Styles for completed tasks */
+.completed-task {
+    background-color: #58D68D; /* Green */
+}
+
+completed-task .task-title {
+    color: #FF5733; /* Red */
+}
+
+completed-task .complete-task-button {
+    display: none;
+}
+
+completed-task span {
+    color: #58D68D; /* Green */
+}
+
+completed-task .edit-task-button,
+completed-task .delete-task-button {
+    background-color: #3498DB; /* Blue */
+}
+
+completed-task .edit-task-button:hover,
+completed-task .delete-task-button:hover {
+    background-color: #2874A6; /* Dark Blue */
+}
+
+/* Add a style for the "Open" button */
+.open-task-button {
     padding: 10px 20px;
     background-color: #0074e4;
     color: #ffffff;
@@ -70,9 +150,11 @@ li {
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    margin: 10px;
+    text-decoration: none;
+    display: inline-block; /* Display it as an inline element */
+    margin-right: 10px; /* Adjust the margin as needed */
 }
 
-.profile-button:hover {
+.open-task-button:hover {
     background-color: #0052b2;
 }

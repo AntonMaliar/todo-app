@@ -12,23 +12,33 @@
         <div class="profile-info">
             <div class="form-group">
                 <label for="username">Username:</label>
-                @if($user)
-                    <span id="username">{{$user->name}}</span>
-                @endif
+                <span id="username">{{$user->name}}</span>
             </div>
         </div>
+        <a href="/create-task" class="button create-task-button">Create Task</a>
+        <a href="/edit-profile" class="button edit-profile-button">Edit Profile</a>
+        @if($user->tasks)
         <div class="task-list">
             <h2>Task List</h2>
             <ul>
-                <li>Task 1</li>
-                <li>Task 2</li>
-                <li>Task 3</li>
+            @foreach($user->tasks as $task)
+                <li class="{{ $task->status === 'in progress' ? 'in-progress-task' : 'completed-task' }}">
+                    <span class="task-title">{{ $task->title }}</span>
+                    <div class="status-buttons">
+                        @if($task->status === 'in progress')
+                        <a href="/complete-task/{{ $task->id }}" class="button complete-task-button">Complete</a>
+                        @else
+                        <span>Completed</span>
+                        @endif
+                        <a href="/open-task/{{$task->id}}" class="button open-task-button">Open</a>
+                        <a href="/edit-task/{{$task->id}}" class="button edit-task-button">Edit</a>
+                        <a href="/delete-task/{{$task->id}}" class="button delete-task-button">Delete</a>
+                    </div>
+                </li>
+            @endforeach
             </ul>
         </div>
-        <button id="add-task-button" class="profile-button">Add Task</button>
-        <a href="/edit-profile">
-            <button id="edit-profile-button" class="profile-button">Edit Profile</button>
-        </a>
+        @endif
     </div>
 </body>
 </html>
