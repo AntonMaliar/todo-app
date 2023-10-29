@@ -1,5 +1,5 @@
 /* Reset default margin and padding */
-body, h1, h2, p, form, button, input {
+body, h1, h2, p {
     margin: 0;
     padding: 0;
 }
@@ -17,32 +17,62 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+.task-title {
     color: #333;
     margin-bottom: 20px;
+    font-size: 24px;
 }
 
 .task-details {
     text-align: left;
-    margin-bottom: 20px;
+    margin: 20px;
 }
 
-.task-details h2 {
+.detail-title {
+    color: #0074e4;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.detail-description {
+    color: #333;
+    font-size: 16px;
+}
+
+.view-sub-tasks {
+    text-align: left;
+    margin: 20px;
+}
+
+.sub-tasks-title {
     color: #333;
     font-size: 20px;
     margin-bottom: 10px;
 }
 
-.task-details p {
+.sub-task-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.sub-task-label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
     color: #333;
 }
 
-.sub-tasks {
-    text-align: left;
-    margin-top: 20px;
+.sub-task-label input {
+    margin-right: 10px;
 }
 
-.add-sub-task {
+.sub-task-text {
+    font-size: 16px;
+    color: #333;
+}
+
+.save-button {
     padding: 10px 20px;
     background-color: #0074e4;
     color: #ffffff;
@@ -51,37 +81,34 @@ h1 {
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 10px;
+    margin: 10px;
 }
 
-.add-sub-task:hover {
+.save-button:hover {
     background-color: #0052b2;
 }
 
-#inputContainer {
-    margin-top: 10px;
+.sub-tasks {
+    text-align: left;
+    margin: 20px;
 }
 
-#inputContainer div {
-    margin-top: 5px;
-}
-
-#inputContainer input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
+.add-sub-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
     border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-    margin-top: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin: 10px;
 }
 
-#inputContainer input:hover {
-    border-color: #0074e4;
+.add-sub-button:hover {
+    background-color: #45a049;
 }
-/* Style for the "Create" button */
+
 .create-button {
     padding: 10px 20px;
     background-color: #0074e4;
@@ -91,11 +118,38 @@ h1 {
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 10px;
+    margin: 10px;
 }
 
 .create-button:hover {
     background-color: #0052b2;
 }
+
+.custom-div {
+    width: 100%;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.delete-sub-task-button {
+    background-color: #ff5252;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.delete-sub-task-button:hover {
+    background-color: #ff0000;
+}
+

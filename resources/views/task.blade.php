@@ -3,37 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{asset('css/task.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/task.css') }}">
     <title>Task</title>
 </head>
 <body>
     <div class="container">
-        <h1>Task</h1>
+        <h1 class="task-title">{{ $task->title }}</h1>
         <div class="task-details">
-            <h2>Title: {{$task->title}}</h2>
-            <p>Description: {{$task->description}}</p>
+            <h2 class="detail-description">Description: {{ $task->description }}</h2>
         </div>
-        <div class="sub-tasks">
-            <h2>Sub-Tasks</h2>
-            <form action="/add-sub-task/{{$task->id}}">
-                <button type="button" onclick="addSubTask()" class="button add-sub-task">Add Sub Task</button>
-                <div id="inputContainer">
-                </div>
-                <input type="submit" value="Create" class="create-button">
-            </form>
-        </div>
+
+        @if($task->subTasks())
+        <form action="/save-sub-task-change/{{$task->id}}" method="POST">
+            @csrf
+
+            <div class="sub-tasks">
+                <h2 class="sub-tasks-title">Sub-Tasks</h2>
+                @foreach($task->subTasks as $st)
+                    <div class="sub-task-item">
+                        <input type="checkbox" name="{{$st->id}}">
+                        <span class="sub-task-text">{{ $st->description }}</span>
+                        <a href="/delete-sub-task/{{$st->id}}" class="button delete-sub-task-button">Delete</a>
+                    </div>
+                @endforeach
+            </div>
+
+            <button type="submit" class="button save-button">Save Changes</button>
+        </form>
+        @endif
+
+        <button type="button" onclick="addSubTask()" class="button add-sub-button">Add Sub Task</button>
+        
+        <form action="/add-sub-task/{{$task->id}}" method="POST">
+            @csrf
+            <div id="inputContainer"></div>
+            <button type="submit" class="button create-button">Create Sub Task</button>
+        </form>
+
     </div>
-</body>
-<script>
+
+    <script>
         function addSubTask() {
-            const inputContainer = document.getElementById("inputContainer");
-            const inputDiv = document.createElement("div"); // Create a new div element
-            const input = document.createElement("input");
-            input.type = "text";
-            input.name = "sub-tasks[]"; // You can specify the input name
-            input.placeholder = "Enter sub task";
-            inputDiv.appendChild(input); // Append the input to the div
-            inputContainer.appendChild(inputDiv); // Append the div to the container
-        }
+        const inputContainer = document.getElementById("inputContainer");
+        const inputDiv = document.createElement("div");
+        const input = document.createElement("input");
+        inputDiv.classList.add("sub-task-item");
+        input.type = "text";
+        input.name = "sub_tasks[]";
+        input.placeholder = "Enter sub task";
+    
+    // Create a delete button and add it to the sub-task item
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("button", "delete-sub-task-button");
+        deleteButton.addEventListener("click", function() {
+        inputContainer.removeChild(inputDiv);
+        });
+
+        inputDiv.appendChild(input);
+        inputDiv.appendChild(deleteButton);
+        inputContainer.appendChild(inputDiv);
+}
+
     </script>
+</body>
 </html>

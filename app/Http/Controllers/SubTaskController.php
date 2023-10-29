@@ -4,18 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\SubTask;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SubTaskController extends Controller
 {
-    public function addSubTask($taskId ,Request $request) {
-        $subTasks = $request->input('sub-tasks');
+    public function addSubTask(int $taskId, Request $request) {
+        $subTasks = array_map(
+            fn($subTasksDescription) => new SubTask(['description' => $subTasksDescription]),
+            $request->input('sub_tasks')
+        );
 
-        foreach($subTasks as $st) {
-            $st->task_id = $taskId;
-        }
-        //add task id for each sub task
-        //send batch of task to db
-        SubTask::createMany($subTasks);
+        $task = Task::find($taskId);
+ 
+        $task->subTasks()->saveMany($subTasks);
+
+        return redirect('/open-task/'.$taskId);
     }
 }

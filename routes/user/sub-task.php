@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SubTaskController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/add-sub-task/{id}', [SubTaskController::class, 'addSubTask']);
+Route::post('/add-sub-task/{taskId}', [SubTaskController::class, 'addSubTask']);
+
