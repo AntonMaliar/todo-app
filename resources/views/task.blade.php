@@ -14,22 +14,16 @@
         </div>
 
         @if($task->subTasks())
-        <form action="/save-sub-task-change/{{$task->id}}" method="POST">
-            @csrf
-
             <div class="sub-tasks">
                 <h2 class="sub-tasks-title">Sub-Tasks</h2>
                 @foreach($task->subTasks as $st)
                     <div class="sub-task-item">
-                        <input type="checkbox" name="{{$st->id}}">
                         <span class="sub-task-text">{{ $st->description }}</span>
-                        <a href="/delete-sub-task/{{$st->id}}" class="button delete-sub-task-button">Delete</a>
+                        <a></a>
+                        <a href="/delete-sub-task/{{$task->id}}/{{$st->id}}" class="button delete-sub-task-button">Delete</a>
                     </div>
                 @endforeach
             </div>
-
-            <button type="submit" class="button save-button">Save Changes</button>
-        </form>
         @endif
 
         <button type="button" onclick="addSubTask()" class="button add-sub-button">Add Sub Task</button>

@@ -22,4 +22,10 @@ class SubTaskController extends Controller
 
         return redirect('/open-task/'.$taskId);
     }
+
+    public function deleteSubTask($taskId, $subTaskId) {
+        SubTask::destroy($subTaskId);
+
+        return redirect('/open-task/'.$taskId);
+    }
 }
