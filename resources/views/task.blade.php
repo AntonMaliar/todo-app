@@ -19,7 +19,11 @@
                 @foreach($task->subTasks as $st)
                     <div class="sub-task-item">
                         <span class="sub-task-text">{{ $st->description }}</span>
-                        <a></a>
+                        @if($st->status === 'in progress')
+                            <a href="/complete-sub-task/{{$task->id}}/{{$st->id}}">Complete</a>
+                        @else
+                            <span>Completed</span>
+                        @endif
                         <a href="/delete-sub-task/{{$task->id}}/{{$st->id}}" class="button delete-sub-task-button">Delete</a>
                     </div>
                 @endforeach
