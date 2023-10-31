@@ -28,6 +28,14 @@ class TaskController extends Controller
         return redirect('/profile');
     }
 
+    public function undoComplete($id) {
+        $task = Task::find($id);
+        $task->status = Status::INPROGRESS;
+        $task->save();
+
+        return redirect('/profile');
+    }
+
     public function edit(int $id) {
         $task = Task::find($id);
         

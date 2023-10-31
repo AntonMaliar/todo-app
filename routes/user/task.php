@@ -7,6 +7,7 @@ Route::view('/create-task','create-task')->middleware('auth');
 Route::post('/create-task', [TaskController::class, 'create']);
 
 Route::get('/complete-task/{id}', [TaskController::class, 'complete'])->middleware('auth');
+Route::get('/undo-complete-task/{id}', [TaskController::class, 'undoComplete']);
 
 Route::get('/edit-task/{id}', [TaskController::class, 'edit'])->middleware('auth');
 Route::put('/edit-task-put/{id}', [TaskController::class, 'editPut']);

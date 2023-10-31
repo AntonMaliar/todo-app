@@ -54,6 +54,7 @@
                         <a href="/complete-task/{{ $task->id }}" class="button complete-task-button">Complete</a>
                         @else
                         <span>Completed</span>
+                        <a href="/undo-complete-task/{{ $task->id }}" class="button complete-task-button">Undo Complete</a>
                         @endif
                         <a href="/open-task/{{$task->id}}" class="button open-task-button">Open</a>
                         <a href="/edit-task/{{$task->id}}" class="button edit-task-button">Edit</a>
