@@ -54,4 +54,72 @@ class TaskController extends Controller
 
         return view('task', ['task' => $task]);
     }
+
+    public function sort(Request $request) {
+        //get sort option
+        $sortOption = $request->input('sort_option');
+        $tasks = null;
+        $user = auth()->user();
+        $userId = $user->id;
+
+        if($sortOption === 'completed_asc') {
+            $tasks = $this->completedAsc($userId);
+        }elseif($sortOption === 'completed_desc') {
+            $tasks = $this->completedDesc($userId);
+        }elseif($sortOption === 'in_progress_asc') {
+            $tasks = $this->inProgressAsc($userId);
+        }elseif($sortOption === 'in_progress_desc') {
+            $tasks = $this->inProgressDesc($userId);
+        }elseif($sortOption === 'name_asc') {
+            $tasks = $this->nameAsc($userId);
+        }elseif($sortOption === 'name_desc') {
+            $tasks = $this->nameDesc($userId);
+        }
+
+        return view('profile', [
+            'user' => $user,
+            'tasks' => $tasks]);
+    }
+    
+
+    private function completedAsc($userId) {
+        return Task::where('user_id', $userId)
+        ->orderBy('status', 'asc')
+        ->orderBy('title', 'asc')
+        ->get();
+    }
+
+    private function completedDesc($userId) {
+        return Task::where('user_id', $userId)
+        ->orderBy('status', 'asc')
+        ->orderBy('title', 'desc')
+        ->get();
+    }
+
+    private function inProgressAsc($userId) {
+        return Task::where('user_id', $userId)
+        ->orderBy('status', 'desc')
+        ->orderBy('title', 'asc')
+        ->get();
+    }
+
+    private function inProgressDesc($userId) {
+        return Task::where('user_id', $userId)
+        ->orderBy('status', 'desc')
+        ->orderBy('title', 'desc')
+        ->get();
+    }
+
+    private function nameAsc($userId) {
+        return Task::where('user_id', $userId)
+        ->orderBy('title', 'asc')
+        ->get();
+    }
+
+    private function nameDesc($userId) {
+        return Task::where('user_id', $userId)
+        ->orderBy('title', 'desc')
+        ->get();
+    }
+    
 }
