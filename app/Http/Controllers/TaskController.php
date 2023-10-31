@@ -122,4 +122,18 @@ class TaskController extends Controller
         ->get();
     }
     
+    public function search(Request $request) {
+        $searchOption = $request->input('search_option');
+        $user = auth()->user();
+
+
+        $tasks = Task::where('user_id', $user->id)
+        ->where('title', 'ilike', '%'.$searchOption.'%')
+        ->get();
+
+        return view('profile', [
+            'user' => $user,
+            'tasks' => $tasks
+        ]);
+    }
 }

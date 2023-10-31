@@ -16,3 +16,5 @@ Route::get('delete-task/{id}', [TaskController::class, 'delete'])->middleware('a
 Route::get('/open-task/{id}', [TaskController::class, 'open'])->middleware('auth');
 
 Route::get('/tasks/sort', [TaskController::class, 'sort'])->middleware('auth');
+
+Route::get('/tasks/search', [TaskController::class, 'search'])->middleware('auth');

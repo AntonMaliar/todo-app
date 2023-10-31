@@ -25,6 +25,7 @@
             <h2>Task List</h2>
             
             <form action="/tasks/sort" method="get">
+
                 <label for="sort-option">Sort By:</label>
                 
                 <select id="sort-option" name="sort_option">
@@ -37,6 +38,11 @@
                 </select>
                 
                 <button type="submit">Sort</button>
+            </form>
+            
+            <form action="/tasks/search" method="get">
+                <input type="text" name="search_option">
+                <button type="submit">Search</button>
             </form>
 
             <ul>
