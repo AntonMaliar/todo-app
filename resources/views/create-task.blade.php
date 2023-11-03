@@ -19,6 +19,10 @@
                 <label for="description">Description</label>
                 <textarea id="description" name="description" required></textarea>
             </div>
+            <div class="form-group">
+                <label for="reminder">Set Reminders</label>
+                <input type="datetime-local" id="reminder" name="reminder" ></input>
+            </div>
             <button type="submit" class="create-task-button">Create Task</button>
         </form>
     </div>

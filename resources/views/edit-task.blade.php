@@ -22,6 +22,10 @@
                 <label for="description">Description</label>
                 <textarea id="description" name="description">{{$task->description}}</textarea>
             </div>
+            <div class="form-group">
+                <label for="reminder">Set Reminders</label>
+                <input type="datetime-local" id="reminder" name="reminder" value="{{$task->reminder}}"></input>
+            </div>
             <button type="submit" class="create-task-button">Edit Task</button>
         </form>
     </div>

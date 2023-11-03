@@ -15,6 +15,7 @@ class TaskController extends Controller
         $task->title = $request->title;
         $task->description = $request->description;
         $task->user_id = auth()->id();
+        $task->reminder = $request->reminder;
         $task->save();
 
         return redirect('/profile');
@@ -46,6 +47,7 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task->title = $request->title;
         $task->description = $request->description;
+        $task->reminder = $request->reminder;
         $task->save();
 
         return redirect('/profile');
