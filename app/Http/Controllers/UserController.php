@@ -13,6 +13,8 @@ class UserController extends Controller
         $user = User::find(auth()->id());
 
         $user->name = $request->username;
+        $user->email-> $request->email;
+        
         if($user->password !== $request->password) {
             $user->password = Hash::make($request->password);
         }

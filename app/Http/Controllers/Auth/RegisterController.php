@@ -13,13 +13,11 @@ class RegisterController extends Controller
         //validate if such user exist in db
         $this->userValidate($request);
 
-        $username = $request->username;
-        //encrype password before store to DB
-        $password = Hash::make($request->password);
-
-        $user = new User();
-        $user->name = $username;
-        $user->password = $password;
+        $user = new User([
+            'name' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
 
         $user->save();
 

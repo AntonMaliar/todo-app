@@ -19,6 +19,11 @@
                 @endif
             </div>
             <div class="form-group">
+                <label for="password">Email</label>
+                <input type="email" id="email" name="email" required>
+                <!-- Add a similar block for password error if needed -->
+            </div>
+            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
                 <!-- Add a similar block for password error if needed -->

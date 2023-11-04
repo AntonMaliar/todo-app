@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as BaseUser;
 
 class User extends BaseUser
 {
-    protected $fillable = ['name', 'password'];
+    protected $fillable = ['name', 'password', 'email'];
 
     public function tasks(): HasMany
     {
