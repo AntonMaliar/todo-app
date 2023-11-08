@@ -17,12 +17,20 @@ class LoginController extends Controller
         if(Auth::attempt([
             'name'=>$username,
             'password'=>$password])) {
-            //get user id from session
-            $userId = auth()->id();
             return redirect('/profile');
         }else {
             
             return back()->with('loginError', 'You input incorrect username or password');
         }
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+ 
+        $request->session()->invalidate();
+ 
+        $request->session()->regenerateToken();
+ 
+        return redirect('/');
     }
 }

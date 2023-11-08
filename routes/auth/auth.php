@@ -8,3 +8,4 @@ Route::view('/log-in', 'log-in')->name('login');
 Route::view('/sign-up', 'sign-up');
 Route::post('/sign-up', [RegisterController::class, 'register']);
 Route::post('/log-in', [LoginController::class, 'login']);
+Route::get('/log-out', [LoginController::class, 'logout']);

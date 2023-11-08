@@ -7,6 +7,7 @@
     <title>User Profile</title>
 </head>
 <body>
+    @include('inc/header')
     <div class="container">
         <h1>User Profile</h1>
 

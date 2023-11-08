@@ -7,6 +7,7 @@
     <title>Task</title>
 </head>
 <body>
+    @include('inc/header')
     <div class="container">
         <h1 class="task-title">{{ $task->title }}</h1>
         <div class="task-details">

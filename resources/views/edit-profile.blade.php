@@ -7,6 +7,7 @@
     <title>Edit Profile</title>
 </head>
 <body>
+    @include('inc/header')
     <div class="container">
         <h1>Edit Profile</h1>
         <form class="edit-profile-form" action="/edit-profile" method="post">

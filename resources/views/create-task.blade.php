@@ -7,6 +7,7 @@
     <title>Create Task</title>
 </head>
 <body>
+    @include('inc/header')
     <div class="container">
         <h1>Create Task</h1>
         <form class="create-task-form" action="/create-task" method="post">
