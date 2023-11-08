@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Task extends Model
 {
-    protected $fillable = ['title', 'description', 'status', 'reminder'];
+    protected $fillable = ['title', 'description', 'status', 'reminder', 'notification_status'];
     
     protected $attributes = [
-        'status' => Status::INPROGRESS
+        'status' => Status::INPROGRESS,
+        'notification_status' => false
     ];
 
     public function subTasks(): HasMany

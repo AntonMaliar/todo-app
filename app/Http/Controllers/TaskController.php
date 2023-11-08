@@ -48,6 +48,7 @@ class TaskController extends Controller
         $task->title = $request->title;
         $task->description = $request->description;
         $task->reminder = $request->reminder;
+        $task->notification_status = false;
         $task->save();
 
         return redirect('/profile');
