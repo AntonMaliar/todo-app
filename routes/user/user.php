@@ -1,15 +1,11 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/profile', function(){
-    $user = auth()->user();
-    return view('profile', [
-        'user' => $user,
-        'tasks' => $user->tasks
-    ]);
-})->middleware('auth');
+Route::get('/profile', [UserController::class, 'profile'])->middleware('auth');
 
 Route::get('/edit-profile', function(){
     $user = auth()->user();

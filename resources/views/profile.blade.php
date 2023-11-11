@@ -36,6 +36,7 @@
                     <option value="in_progress_desc">In Progress Status (Descending)</option>
                     <option value="name_asc">Task Name (Ascending)</option>
                     <option value="name_desc">Task Name (Descending)</option>
+                    <option value="">Creation Time</option>
                 </select>
                 
                 <button type="submit">Sort</button>
@@ -65,6 +66,8 @@
             @endforeach
             </ul>
         </div>
+        <a href="/forward" class="button open-task-button">forward</a>
+        <a href="/back" class="button open-task-button">back</a>
         @endif
     </div>
 </body>

@@ -66,73 +66,13 @@ class TaskController extends Controller
         return view('task', ['task' => $task]);
     }
 
-    public function sort(Request $request) {
-        //get sort option
-        $sortOption = $request->input('sort_option');
-        $tasks = null;
-        $user = auth()->user();
-        $userId = $user->id;
+    //set sort option to session
+    public function setSortOption(Request $request) {
+        session(['sortOption' => $request->input('sort_option')]);
 
-        if($sortOption === 'completed_asc') {
-            $tasks = $this->completedAsc($userId);
-        }elseif($sortOption === 'completed_desc') {
-            $tasks = $this->completedDesc($userId);
-        }elseif($sortOption === 'in_progress_asc') {
-            $tasks = $this->inProgressAsc($userId);
-        }elseif($sortOption === 'in_progress_desc') {
-            $tasks = $this->inProgressDesc($userId);
-        }elseif($sortOption === 'name_asc') {
-            $tasks = $this->nameAsc($userId);
-        }elseif($sortOption === 'name_desc') {
-            $tasks = $this->nameDesc($userId);
-        }
-
-        return view('profile', [
-            'user' => $user,
-            'tasks' => $tasks]);
-    }
-    
-
-    private function completedAsc($userId) {
-        return Task::where('user_id', $userId)
-        ->orderBy('status', 'asc')
-        ->orderBy('title', 'asc')
-        ->get();
+        return redirect('/profile');
     }
 
-    private function completedDesc($userId) {
-        return Task::where('user_id', $userId)
-        ->orderBy('status', 'asc')
-        ->orderBy('title', 'desc')
-        ->get();
-    }
-
-    private function inProgressAsc($userId) {
-        return Task::where('user_id', $userId)
-        ->orderBy('status', 'desc')
-        ->orderBy('title', 'asc')
-        ->get();
-    }
-
-    private function inProgressDesc($userId) {
-        return Task::where('user_id', $userId)
-        ->orderBy('status', 'desc')
-        ->orderBy('title', 'desc')
-        ->get();
-    }
-
-    private function nameAsc($userId) {
-        return Task::where('user_id', $userId)
-        ->orderBy('title', 'asc')
-        ->get();
-    }
-
-    private function nameDesc($userId) {
-        return Task::where('user_id', $userId)
-        ->orderBy('title', 'desc')
-        ->get();
-    }
-    
     public function search(Request $request) {
         $searchOption = $request->input('search_option');
         $user = auth()->user();
@@ -146,5 +86,29 @@ class TaskController extends Controller
             'user' => $user,
             'tasks' => $tasks
         ]);
+    }
+
+    public function forward() {
+        $offset = session('offset');
+
+        if($offset) {
+            $offset+=5;
+            session(['offset' => $offset]);
+        }else {
+            session(['offset' => 5]);
+        }
+
+        return redirect('/profile');
+    }
+
+    public function back() {
+        $offset = session('offset');
+
+        if($offset && $offset > 0) {
+            $offset-=5;
+            session(['offset' => $offset]);
+        }
+
+        return redirect('/profile');
     }
 }
