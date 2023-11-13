@@ -7,14 +7,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class RegisterController extends Controller
+class SignupController extends Controller
 {
-    public function register(Request $request) {
+    public function signup(Request $request) {
         //validate if such user exist in db
         $this->userValidate($request);
 
         $user = new User([
-            'name' => $request->username,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
@@ -26,7 +26,8 @@ class RegisterController extends Controller
 
     private function userValidate($request) {
         $request->validate([
-            'username' => 'unique:users,name'
+            'name' => 'unique:users,name',
+            'email' => 'unique:users,email'
         ]);
     }
 }

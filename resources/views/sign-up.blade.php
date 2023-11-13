@@ -12,16 +12,18 @@
         <form class="signup-form" action="/signup" method="POST">
             @csrf
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-                @if ($errors->has('username'))
-                    <p class="error-message">{{$errors->first('username')}}</p>
+                <label for="name">Username</label>
+                <input type="text" id="name" name="name" required>
+                @if ($errors->has('name'))
+                    <p class="error-message">{{$errors->first('name')}}</p>
                 @endif
             </div>
             <div class="form-group">
-                <label for="password">Email</label>
-                <input type="email" id="email" name="email" required>
-                <!-- Add a similar block for password error if needed -->
+                <label for="email">Email</label>
+                <input type="email" id="" name="email" required>
+                @if ($errors->has('email'))
+                    <p class="error-message">{{$errors->first('email')}}</p>
+                @endif
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

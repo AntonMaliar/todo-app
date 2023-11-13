@@ -40,7 +40,6 @@ class LoginControllerTest extends TestCase
         ]);
 
         $response->assertRedirect('/profile');
-
         $this->assertTrue(Auth::check());
     }
 
@@ -52,13 +51,11 @@ class LoginControllerTest extends TestCase
 
         $response->assertRedirect('/login');
         $response->assertSessionHas('loginError', 'You input incorrect username or password');
-
         $this->assertFalse(Auth::check());
     }
 
     public function testLogout() {
         $response = $this->get('/logout');
-
         $response ->assertRedirect('/');
         $this->assertFalse(Auth::check());
     }
