@@ -4,8 +4,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/log-in', 'log-in')->name('login');
-Route::view('/sign-up', 'sign-up');
-Route::post('/sign-up', [RegisterController::class, 'register']);
-Route::post('/log-in', [LoginController::class, 'login']);
-Route::get('/log-out', [LoginController::class, 'logout']);
+Route::view('/login', 'log-in')->name('login');
+Route::view('/signup', 'sign-up');
+Route::post('/signup', [RegisterController::class, 'register']);
+Route::post('/login', [LoginController::class, 'login']);
+Route::get('/logout', [LoginController::class, 'logout']);

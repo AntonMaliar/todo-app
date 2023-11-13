@@ -10,8 +10,8 @@
     <div class="container">
         <h1>Welcome to the Todo App</h1>
         <div class="btn-container">
-            <a href="/log-in" class="btn">Log In</a>
-            <a href="/sign-up" class="btn">Sign Up</a>
+            <a href="/login" class="btn">Log In</a>
+            <a href="/signup" class="btn">Sign Up</a>
         </div>
     </div>
 </body>

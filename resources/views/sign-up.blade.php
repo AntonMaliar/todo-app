@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Create an Account</h1>
-        <form class="signup-form" action="/sign-up" method="POST">
+        <form class="signup-form" action="/signup" method="POST">
             @csrf
             <div class="form-group">
                 <label for="username">Username</label>

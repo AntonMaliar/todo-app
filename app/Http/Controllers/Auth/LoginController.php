@@ -11,16 +11,18 @@ use Illuminate\Support\Facades\Log;
 class LoginController extends Controller
 {
     public function login(Request $request) {
-        $username = $request->username;
+        $name = $request->name;
         $password = $request->password;
 
         if(Auth::attempt([
-            'name'=>$username,
+            'name'=>$name,
             'password'=>$password])) {
+
             return redirect('/profile');
         }else {
-            
-            return back()->with('loginError', 'You input incorrect username or password');
+
+            return redirect('/login')
+            ->with('loginError', 'You input incorrect username or password');
         }
     }
 

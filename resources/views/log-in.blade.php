@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>User Login</h1>
-        <form class="login-form" action="/log-in" method="post">
+        <form class="login-form" action="/login" method="post">
             @csrf
             @if ($message = Session::get('loginError'))
                 <div class="error-message">
@@ -17,8 +17,8 @@
                 </div>
             @endif
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <label for="name">Username</label>
+                <input type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
