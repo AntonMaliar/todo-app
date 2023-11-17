@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
 {
-    protected $user;
+    protected User $user;
 
     public function setUp(): void {
         parent::setUp();
