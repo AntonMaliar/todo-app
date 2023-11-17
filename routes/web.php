@@ -24,4 +24,4 @@ Route::get('/', function() {
     }else {
         return view('welcome');
     }
-});
+})->withoutMiddleware('auth');

@@ -21,8 +21,9 @@ class TaskController extends Controller
         return redirect('/profile');
     }
 
-    public function complete(int $id) {
+    public function complete($id) {
         $task = Task::find($id);
+        $this->authorize('authorize', $task);
         $task->status = Status::COMPLETED;
         $task->save();
 
@@ -31,14 +32,16 @@ class TaskController extends Controller
 
     public function undoComplete($id) {
         $task = Task::find($id);
+        $this->authorize('authorize', $task);
         $task->status = Status::INPROGRESS;
         $task->save();
 
         return redirect('/profile');
     }
 
-    public function edit(int $id) {
+    public function edit($id) {
         $task = Task::find($id);
+        $this->authorize('authorize', $task);
         
         return view('edit-task', ['task' => $task]); 
     }
@@ -55,13 +58,16 @@ class TaskController extends Controller
     }
 
     public function delete($id) {
-        Task::destroy($id);
+        $task = Task::find($id);
+        $this->authorize('authorize', $task);
+        $task->delete();
 
         return redirect('/profile');
     }
 
     public function open($id) {
         $task = Task::find($id);
+        $this->authorize('authorize', $task);
 
         return view('task', ['task' => $task]);
     }

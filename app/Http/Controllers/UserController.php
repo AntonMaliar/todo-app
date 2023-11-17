@@ -16,7 +16,7 @@ class UserController extends Controller
     public function edit(Request $request) {
         $user = User::find(auth()->id());
 
-        $user->name = $request->username;
+        $user->name = $request->name;
         $user->email-> $request->email;
         
         if($user->password !== $request->password) {

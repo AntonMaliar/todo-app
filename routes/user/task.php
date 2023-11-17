@@ -4,22 +4,22 @@ use App\Http\Controllers\TaskController;
 use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/create-task','create-task')->middleware('auth');
+Route::view('/create-task','create-task');
 Route::post('/create-task', [TaskController::class, 'create']);
 
-Route::get('/complete-task/{id}', [TaskController::class, 'complete'])->middleware('auth');
+Route::get('/complete-task/{id}', [TaskController::class, 'complete']);
 Route::get('/undo-complete-task/{id}', [TaskController::class, 'undoComplete']);
 
-Route::get('/edit-task/{id}', [TaskController::class, 'edit'])->middleware('auth');
+Route::get('/edit-task/{id}', [TaskController::class, 'edit']);
 Route::put('/edit-task-put/{id}', [TaskController::class, 'editPut']);
 
-Route::get('delete-task/{id}', [TaskController::class, 'delete'])->middleware('auth');
+Route::get('delete-task/{id}', [TaskController::class, 'delete']);
 
-Route::get('/open-task/{id}', [TaskController::class, 'open'])->middleware('auth');
+Route::get('/open-task/{id}', [TaskController::class, 'open']);
 
-Route::get('/tasks/sort', [TaskController::class, 'setSortOption'])->middleware('auth');
+Route::get('/tasks/sort', [TaskController::class, 'setSortOption']);
 
-Route::get('/tasks/search', [TaskController::class, 'search'])->middleware('auth');
+Route::get('/tasks/search', [TaskController::class, 'search']);
 
-Route::get('/forward', [TaskController::class, 'forward'])->middleware('auth');
-Route::get('/back', [TaskController::class, 'back'])->middleware('auth');
+Route::get('/forward', [TaskController::class, 'forward']);
+Route::get('/back', [TaskController::class, 'back']);
