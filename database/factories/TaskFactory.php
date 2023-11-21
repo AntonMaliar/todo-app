@@ -17,7 +17,7 @@ class TaskFactory extends Factory
         return [
             'title' => $this->faker->text(20),
             'description' => $this->faker->text(20),
-            'user_id' => 1
+            'user_id' => 0
         ];
     }
 }

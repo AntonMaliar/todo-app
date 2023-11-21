@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use App\Models\User;
 use App\Models\Util\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -11,12 +12,13 @@ use Illuminate\Support\Facades\Log;
 class TaskController extends Controller
 {
     public function create(Request $request) {
-        $task = new Task();
-        $task->title = $request->title;
-        $task->description = $request->description;
-        $task->user_id = auth()->id();
-        $task->reminder = $request->reminder;
-        $task->save();
+        User::find(auth()->id())
+            ->tasks()
+            ->save(new Task([
+                'title' => $request->title,
+                'description' => $request->description,
+                'reminder' => $request->reminder,
+            ]));
 
         return redirect('/profile');
     }
@@ -24,8 +26,8 @@ class TaskController extends Controller
     public function complete($id) {
         $task = Task::find($id);
         $this->authorize('authorize', $task);
-        $task->status = Status::COMPLETED;
-        $task->save();
+        
+        $task->update(['status' => Status::COMPLETED]);
 
         return redirect('/profile');
     }
@@ -33,8 +35,8 @@ class TaskController extends Controller
     public function undoComplete($id) {
         $task = Task::find($id);
         $this->authorize('authorize', $task);
-        $task->status = Status::INPROGRESS;
-        $task->save();
+
+        $task->update(['status' => Status::INPROGRESS]);
 
         return redirect('/profile');
     }
@@ -48,18 +50,22 @@ class TaskController extends Controller
 
     public function editPut(int $id, Request $request) {
         $task = Task::find($id);
-        $task->title = $request->title;
-        $task->description = $request->description;
-        $task->reminder = $request->reminder;
-        $task->notification_status = false;
-        $task->save();
+        $this->authorize('authorize', $task);
 
+        $task->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'reminder' => $request->reminder,
+            'notification_status' => false,
+        ]);
+        
         return redirect('/profile');
     }
 
     public function delete($id) {
         $task = Task::find($id);
         $this->authorize('authorize', $task);
+
         $task->delete();
 
         return redirect('/profile');
@@ -72,7 +78,6 @@ class TaskController extends Controller
         return view('task', ['task' => $task]);
     }
 
-    //set sort option to session
     public function setSortOption(Request $request) {
         session(['sortOption' => $request->input('sort_option')]);
 
