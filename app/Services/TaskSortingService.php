@@ -8,7 +8,7 @@ use PgSql\Lob;
 
 class TaskSortingService {
 
-    public static function sort() {
+    public function sort() {
         $sortOption = session('sortOption');
         $offset = session('offset');
         $userId = auth()->id();
@@ -31,7 +31,7 @@ class TaskSortingService {
         }
     }
 
-    private static function completedAsc($userId, $offset) {
+    private function completedAsc($userId, $offset) {
     return Task::where('user_id', $userId)
         ->where('status', 'completed')
         ->orderBy('title', 'asc')
@@ -40,7 +40,7 @@ class TaskSortingService {
         ->get();
     }
 
-    private static function completedDesc($userId, $offset) {
+    private function completedDesc($userId, $offset) {
     return Task::where('user_id', $userId)
         ->where('status', 'completed')
         ->orderBy('title', 'desc')
@@ -49,7 +49,7 @@ class TaskSortingService {
         ->get();
     }
 
-    private static function inProgressAsc($userId, $offset) {
+    private function inProgressAsc($userId, $offset) {
     return Task::where('user_id', $userId)
         ->where('status', 'in progress')
         ->orderBy('title', 'asc')
@@ -58,7 +58,7 @@ class TaskSortingService {
         ->get();
     }
 
-    private static function inProgressDesc($userId, $offset) {
+    private function inProgressDesc($userId, $offset) {
     return Task::where('user_id', $userId)
         ->where('status', 'in progress')
         ->orderBy('title', 'desc')
@@ -67,7 +67,7 @@ class TaskSortingService {
         ->get();
     }
 
-    private static function nameAsc($userId, $offset) {
+    private function nameAsc($userId, $offset) {
     return Task::where('user_id', $userId)
         ->orderBy('title', 'asc')
         ->limit(5)
@@ -75,7 +75,7 @@ class TaskSortingService {
         ->get();
     }
 
-    private static function nameDesc($userId, $offset) {
+    private function nameDesc($userId, $offset) {
     return Task::where('user_id', $userId)
         ->orderBy('title', 'desc')
         ->limit(5)
@@ -83,7 +83,7 @@ class TaskSortingService {
         ->get();
     }
 
-    private static function defaultSort($userId, $offset) {
+    private function defaultSort($userId, $offset) {
     return Task::where('user_id', $userId)
         ->orderBy('created_at', 'desc')
         ->limit(5)

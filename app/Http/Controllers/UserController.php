@@ -12,12 +12,18 @@ use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
+    protected $taskSortingService;
+
+    public function __construct(TaskSortingService $taskSortingService)
+    {
+        $this->taskSortingService = $taskSortingService;
+    }
 
     public function edit(Request $request) {
         $user = User::find(auth()->id());
 
         $user->name = $request->name;
-        $user->email-> $request->email;
+        $user->email = $request->email;
         
         if($user->password !== $request->password) {
             $user->password = Hash::make($request->password);
@@ -29,11 +35,11 @@ class UserController extends Controller
 
     public function profile() {
         $user = auth()->user();
-        $tasks = TaskSortingService::sort();
+        $tasks = $this->taskSortingService->sort();
     
         return view('profile', [
-        'user' => $user,
-        'tasks' => $tasks
+            'user' => $user,
+            'tasks' => $tasks
         ]);
     }
 
