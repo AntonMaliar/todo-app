@@ -3,37 +3,38 @@
 namespace App\Services;
 
 use App\Models\Task;
-use Illuminate\Support\Facades\Log;
-use PgSql\Lob;
+use App\Models\Util\Status;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class TaskSortingService {
 
     public function sort() {
-        $sortOption = session('sortOption');
-        $offset = session('offset');
-        $userId = auth()->id();
+        $sortOption = Session::get('sortOption');
+        $offset = Session::get('offset');
+        $userId = Auth::id();
 
         switch ($sortOption) {
             case 'completed_asc':
-                return self::completedAsc($userId, $offset);
+                return $this->completedAsc($userId, $offset);
             case 'completed_desc':
-                return self::completedDesc($userId, $offset);
+                return $this->completedDesc($userId, $offset);
             case 'in_progress_asc':
-                return self::inProgressAsc($userId, $offset);
+                return $this->inProgressAsc($userId, $offset);
             case 'in_progress_desc':
-                return self::inProgressDesc($userId, $offset);
+                return $this->inProgressDesc($userId, $offset);
             case 'name_asc':
-                return self::nameAsc($userId, $offset);
+                return $this->nameAsc($userId, $offset);
             case 'name_desc':
-                return self::nameDesc($userId, $offset);
+                return $this->nameDesc($userId, $offset);
             default:
-                return self::defaultSort($userId, $offset);
+                return $this->defaultSort($userId, $offset);
         }
     }
 
     private function completedAsc($userId, $offset) {
-    return Task::where('user_id', $userId)
-        ->where('status', 'completed')
+        return Task::where('user_id', $userId)
+        ->where('status', Status::COMPLETED)
         ->orderBy('title', 'asc')
         ->limit(5)
         ->offset($offset)
@@ -41,7 +42,7 @@ class TaskSortingService {
     }
 
     private function completedDesc($userId, $offset) {
-    return Task::where('user_id', $userId)
+        return Task::where('user_id', $userId)
         ->where('status', 'completed')
         ->orderBy('title', 'desc')
         ->limit(5)
@@ -50,7 +51,7 @@ class TaskSortingService {
     }
 
     private function inProgressAsc($userId, $offset) {
-    return Task::where('user_id', $userId)
+        return Task::where('user_id', $userId)
         ->where('status', 'in progress')
         ->orderBy('title', 'asc')
         ->limit(5)
@@ -59,7 +60,7 @@ class TaskSortingService {
     }
 
     private function inProgressDesc($userId, $offset) {
-    return Task::where('user_id', $userId)
+        return Task::where('user_id', $userId)
         ->where('status', 'in progress')
         ->orderBy('title', 'desc')
         ->limit(5)
@@ -68,7 +69,7 @@ class TaskSortingService {
     }
 
     private function nameAsc($userId, $offset) {
-    return Task::where('user_id', $userId)
+        return Task::where('user_id', $userId)
         ->orderBy('title', 'asc')
         ->limit(5)
         ->offset($offset)
@@ -76,7 +77,7 @@ class TaskSortingService {
     }
 
     private function nameDesc($userId, $offset) {
-    return Task::where('user_id', $userId)
+        return Task::where('user_id', $userId)
         ->orderBy('title', 'desc')
         ->limit(5)
         ->offset($offset)
@@ -84,7 +85,7 @@ class TaskSortingService {
     }
 
     private function defaultSort($userId, $offset) {
-    return Task::where('user_id', $userId)
+        return Task::where('user_id', $userId)
         ->orderBy('created_at', 'desc')
         ->limit(5)
         ->offset($offset)
