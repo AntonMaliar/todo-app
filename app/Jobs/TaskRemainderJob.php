@@ -27,21 +27,19 @@ class TaskRemainderJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(): void
-    {
-    $tasks = Task::where('reminder', '>', now())
+    public function handle(): void {
+        $tasks = Task::where('reminder', '>', now())
                  ->where('reminder', '<=', now()->addHours(1))
                  ->where('notification_status', false)
                  ->get();
 
-    Log::info('tasks = '.$tasks);
 
-    foreach ($tasks as $task) {
-        $task->notification_status = true;
-        $task->save();
+        foreach ($tasks as $task) {
+            $task->notification_status = true;
+            $task->save();
 
-        $user = User::find($task->user_id);
-        $user->notify(new TaskReminderNotification($task));
+            $user = User::find($task->user_id);
+            $user->notify(new TaskReminderNotification($task));
         }
     }
 
