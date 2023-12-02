@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{asset('css/welcome.css')}}">
     <title>Todo App</title>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to the Todo App</h1>
+        @include('inc/header')
+        <h1>{{ __('app.Welcome to the Todo App') }}</h1>
         <div class="btn-container">
-            <a href="/login" class="btn">Log In</a>
-            <a href="/signup" class="btn">Sign Up</a>
+            <a href="/login" class="btn">{{ __('app.Login') }}</a>
+            <a href="/signup" class="btn">{{ __('app.Signup') }}</a>
         </div>
     </div>
 </body>

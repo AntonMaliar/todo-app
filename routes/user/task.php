@@ -2,9 +2,16 @@
 
 use App\Http\Controllers\TaskController;
 use App\Models\Task;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
-Route::view('/create-task','create-task');
+Route::get('/create-task', function() {
+    App::setLocale(Session::get('lang'));
+    
+    return view('create-task');
+});
+
 Route::post('/create-task', [TaskController::class, 'create']);
 
 Route::get('/complete-task/{id}', [TaskController::class, 'complete']);

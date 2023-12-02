@@ -7,7 +7,9 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\Util\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class TaskController extends Controller
 {
@@ -42,7 +44,10 @@ class TaskController extends Controller
     }
 
     public function edit($id) {
+        App::setLocale(Session::get('lang'));
+
         $task = Task::find($id);
+        
         $this->authorize('authorize', $task);
         
         return view('edit-task', ['task' => $task]); 
@@ -72,7 +77,10 @@ class TaskController extends Controller
     }
 
     public function open($id) {
+        App::setLocale(Session::get('lang'));
+
         $task = Task::find($id);
+        
         $this->authorize('authorize', $task);
 
         return view('task', ['task' => $task]);

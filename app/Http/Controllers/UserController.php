@@ -7,8 +7,10 @@ use App\Models\Task;
 use App\Models\User;
 use App\Services\TaskSortingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -34,7 +36,10 @@ class UserController extends Controller
     }
 
     public function profile() {
+        App::setLocale(Session::get('lang'));
+
         $user = auth()->user();
+        
         $tasks = $this->taskSortingService->sort();
     
         return view('profile', [
