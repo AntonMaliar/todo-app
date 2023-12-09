@@ -28,7 +28,7 @@ class TaskController extends Controller
     public function complete($id) {
         $task = Task::find($id);
         $this->authorize('authorize', $task);
-        
+
         $task->update(['status' => Status::COMPLETED]);
 
         return redirect('/profile');
@@ -47,10 +47,10 @@ class TaskController extends Controller
         App::setLocale(Session::get('lang'));
 
         $task = Task::find($id);
-        
+
         $this->authorize('authorize', $task);
-        
-        return view('edit-task', ['task' => $task]); 
+
+        return view('edit-task', ['task' => $task]);
     }
 
     public function editPut(int $id, Request $request) {
@@ -63,7 +63,7 @@ class TaskController extends Controller
             'reminder' => $request->reminder,
             'notification_status' => false,
         ]);
-        
+
         return redirect('/profile');
     }
 
@@ -80,29 +80,26 @@ class TaskController extends Controller
         App::setLocale(Session::get('lang'));
 
         $task = Task::find($id);
-        
+
         $this->authorize('authorize', $task);
 
         return view('task', ['task' => $task]);
     }
 
     public function setSortOption(Request $request) {
-        //if curent sort option != request sort option
-        //offset = 0;
         Session::put('searchOption', null);
 
         if(Session::get('sortOption') != $request->input('sort_option')) {
             Session::put('offset', 0);
             Session::put('currentCount', 0);
         }
-    
+
         Session::put('sortOption', $request->input('sort_option'));
 
         return redirect('/profile');
     }
 
     public function search(Request $request) {
-
         Session::put('sortOption', null);
 
         if(Session::get('searchOption') != $request->input('search_option')) {
@@ -119,7 +116,7 @@ class TaskController extends Controller
         $offset = session('offset');
         $currentCount = session('currentCount');
 
-        if(($offset+5) < $currentCount) {
+        if(($offset+5) <= $currentCount) {
             $offset+=5;
             session(['offset' => $offset]);
         }
@@ -141,7 +138,7 @@ class TaskController extends Controller
     public function reset() {
         Session::put('sortOption', null);
         Session::put('searchOption', null);
-        
+
         return redirect('/profile');
     }
 }

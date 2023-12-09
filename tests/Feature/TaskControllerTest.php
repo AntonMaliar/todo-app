@@ -8,6 +8,7 @@ use App\Models\Util\Status;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
@@ -39,7 +40,7 @@ class TaskControllerTest extends TestCase {
         ]);
 
         $response->assertRedirect("/profile");
-        
+
     }
 
     public function testCreateIfUserNotLogin() {
@@ -58,7 +59,7 @@ class TaskControllerTest extends TestCase {
 
     public function testCompleteIfUserLoginAndAuthorized() {
         $this->actingAs($this->user);
-        
+
         $task = Task::factory()->create([
             'user_id' => $this->user->id
         ]);
@@ -132,7 +133,7 @@ class TaskControllerTest extends TestCase {
 
     public function testUndoCompleteIfUserNotAuthorized() {
         $this->actingAs($this->user);
-        
+
         $task = Task::factory()->create(['status' => Status::COMPLETED]);
 
         $response = $this->get("/undo-complete-task/{$task->id}");
@@ -236,7 +237,7 @@ class TaskControllerTest extends TestCase {
         ]);
 
         $response = $this->get("delete-task/{$task->id}");
-        
+
         $this->assertDatabaseMissing('tasks', ['user_id' => $this->user->id]);
         $response->assertRedirect('/profile');
     }
@@ -247,7 +248,7 @@ class TaskControllerTest extends TestCase {
         ]);
 
         $response = $this->get("delete-task/{$task->id}");
-        
+
         $this->assertDatabaseHas('tasks', ['user_id' => $this->user->id]);
         $response->assertRedirect('/login');
     }
@@ -282,7 +283,7 @@ class TaskControllerTest extends TestCase {
         ]);
 
         $response = $this->get("/open-task/{$task->id}");
-        
+
         $response->assertRedirect('/login');
     }
 
@@ -302,41 +303,62 @@ class TaskControllerTest extends TestCase {
         $response = $this->get("/tasks/sort?sort_option=completed_asc");
 
         $response->assertRedirect('/profile');
-        $this->assertContains('sortOption', array_keys(session()->all()));
         $this->assertEquals('completed_asc', session('sortOption'));
     }
-    
-    public static function testSearchIfUserLoginProvider(): array {
-        return [
-            ['ll', 1],
-            ['o', 3],
-            ['ssds', 0],
-            ['e', 2],
-        ];
+
+    public function testSetSortOptionIfSearchOptionExist() {
+        $this->actingAs($this->user);
+        Session::put("searchOption", "some value");
+
+        $response = $this->get("/tasks/sort?sort_option=completed_asc");
+
+        $response->assertRedirect('/profile');
+        $this->assertEquals('completed_asc', session('sortOption'));
+        $this->assertNull(Session::get('searchOption'));
     }
 
-    #[DataProvider('testSearchIfUserLoginProvider')]
-    public function testSearchIfUserLogin($searchOption, $resultCount) {
+    public function testSetSortOptionIfWeChangeSortOption() {
+        $this->actingAs($this->user);
+        $this->get("/tasks/sort?sort_option=completed_asc");
+        Session::put('offset', 10);
+        Session::put('currentCount', 5);
+
+        $response = $this->get("/tasks/sort?sort_option=completed_desc");
+        $response->assertRedirect('/profile');
+        $this->assertEquals('completed_desc', session('sortOption'));
+        $this->assertEquals(0, Session::get("offset"));
+        $this->assertEquals(0, Session::get("currentCount"));
+    }
+    public function testSearchIfUserLogin() {
         $this->actingAs($this->user);
 
-        $task1 = Task::factory()->create([
-            'title' => 'hello',
-            'user_id' => $this->user->id
-        ]);
-        $task2 = Task::factory()->create([
-            'title' => 'world',
-            'user_id' => $this->user->id
-        ]);
-        $task3 = Task::factory()->create([
-            'title' => 'some tittle',
-            'user_id' => $this->user->id
-        ]);
+        $response = $this->get('/tasks/search?search_option=SomeValue');
 
-        $response = $this->get("/tasks/search?search_option={$searchOption}");
-        $tasks = $response->original->getData()['tasks'];
+        $response->assertRedirect('/profile');
+        $this->assertEquals('SomeValue', Session::get('searchOption'));
+    }
 
-        $response->assertViewHas(['user' => $this->user, 'tasks']);
-        $this->assertEquals($resultCount, count($tasks));
+    public function testSearchIfSortOptionExist() {
+        $this->actingAs($this->user);
+        $this->get("/tasks/sort?sort_option=completed_desc");
+
+        $response = $this->get('/tasks/search?search_option=SomeValue');
+        $response->assertRedirect('/profile');
+        $this->assertEquals('SomeValue', Session::get('searchOption'));
+        $this->assertNull(Session::get('sortOption'));
+    }
+
+    public function testSearchIfSearchOptionChanged() {
+        $this->actingAs($this->user);
+        $this->get('/tasks/search?search_option=SomeValue');
+        Session::put('offset', 10);
+        Session::put('currentCount', 20);
+
+        $response = $this->get('/tasks/search?search_option=SomeValue2');
+        $response->assertRedirect('/profile');
+        $this->assertEquals('SomeValue2', Session::get('searchOption'));
+        $this->assertEquals(0, Session::get('offset'));
+        $this->assertEquals(0, Session::get('currentCount'));
     }
 
     public function testSearchIfUserNotLogin() {
@@ -345,25 +367,26 @@ class TaskControllerTest extends TestCase {
         $response->assertRedirect('/login');
     }
 
-    public static function testForwardProvider(): array {
-        return [
-            [5,1],
-            [10,2],
-            [15,3],
-            [20,4],
-        ];
-    }
-
-    #[DataProvider('testForwardProvider')]
-    public function testForward($resultCount, $requestCount) {
+    public function testForward() {
+        Session::put('currentCount', 15);
         $this->actingAs($this->user);
 
-        while($requestCount > 0) {
-            $this->get('/forward');
-            $requestCount--;
-        }
-        
-        $this->assertEquals($resultCount, session('offset'));
+        $this->get('/forward');
+        $this->assertEquals(5, Session::get('offset'));
+
+        $this->get('/forward');
+        $this->assertEquals(10, Session::get('offset'));
+
+        $this->get('/forward');
+        $this->assertEquals(15, Session::get('offset'));
+
+
+        //bigger then currentCount
+        $this->get('/forward');
+        $this->assertNotEquals(20, Session::get('offset'));
+
+        $this->get('/forward');
+        $this->assertEquals(15, Session::get('offset'));
     }
 
 
@@ -385,7 +408,7 @@ class TaskControllerTest extends TestCase {
             $this->get('/back');
             $requestCount--;
         }
-        
+
         $this->assertEquals($resultCount, session('offset'));
     }
 }
