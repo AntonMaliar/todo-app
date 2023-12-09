@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\User;
+use App\Services\TaskSearchService;
 use App\Services\TaskSortingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -15,10 +16,14 @@ use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
     protected $taskSortingService;
+    protected $taskSearchService;
 
-    public function __construct(TaskSortingService $taskSortingService)
-    {
+    public function __construct(
+        TaskSortingService $taskSortingService,
+        TaskSearchService $taskSearchService
+    ){
         $this->taskSortingService = $taskSortingService;
+        $this->taskSearchService = $taskSearchService;
     }
 
     public function edit(Request $request) {
@@ -42,7 +47,7 @@ class UserController extends Controller
         $searchOption = Session::get('searchOption');
 
         if($searchOption) {
-            $tasks = $this->search($user->id, $searchOption);
+            $tasks = $this->taskSearchService->search($user->id, $searchOption);
         }else {
             $tasks = $this->taskSortingService->sort();
         }
@@ -51,20 +56,6 @@ class UserController extends Controller
             'user' => $user,
             'tasks' => $tasks
         ]);
-    }
-
-    private function search($userId, $searchOption) {
-        if(!Session::get('currentCount')) {
-            $currentCount = Task::where('title', 'ilike', '%' . $searchOption . '%')
-            ->count();
-            Session::put('currentCount', $currentCount);
-        }
-
-        return Task::where('user_id', $userId)
-        ->where('title', 'ilike', '%'.$searchOption.'%')
-        ->limit(5)
-        ->offset(Session::get('offset'))
-        ->get();
     }
 
 }

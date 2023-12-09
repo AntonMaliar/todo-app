@@ -5,11 +5,12 @@ namespace Tests\Feature;
 use App\Models\Task;
 use App\Models\User;
 use App\Notifications\TaskReminderNotification;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class TaskRemainderJobTest extends TestCase {
-    
+    use RefreshDatabase;
 
     public function testHandleIfTaskInNeededDiapason() {
         $user = User::factory()->create();
