@@ -39,13 +39,32 @@ class UserController extends Controller
         App::setLocale(Session::get('lang'));
 
         $user = auth()->user();
-        
-        $tasks = $this->taskSortingService->sort();
+        $searchOption = Session::get('searchOption');
+
+        if($searchOption) {
+            $tasks = $this->search($user->id, $searchOption);
+        }else {
+            $tasks = $this->taskSortingService->sort();
+        }
     
         return view('profile', [
             'user' => $user,
             'tasks' => $tasks
         ]);
+    }
+
+    private function search($userId, $searchOption) {
+        if(!Session::get('currentCount')) {
+            $currentCount = Task::where('title', 'ilike', '%' . $searchOption . '%')
+            ->count();
+            Session::put('currentCount', $currentCount);
+        }
+
+        return Task::where('user_id', $userId)
+        ->where('title', 'ilike', '%'.$searchOption.'%')
+        ->limit(5)
+        ->offset(Session::get('offset'))
+        ->get();
     }
 
 }

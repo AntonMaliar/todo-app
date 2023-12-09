@@ -42,5 +42,7 @@ return [
     "Sub-Tasks List"=>"Sub-Tasks List",
     "Add Sub Task"=>"Add Sub Task",
     "Create Sub Task"=>"Create Sub Task",
-    "Enter sub task"=>"Enter sub task"
+    "Enter sub task"=>"Enter sub task",
+    "Task search"=>"Task search",
+    "Reset everything"=>"Reset everything"
 ];

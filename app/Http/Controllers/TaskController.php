@@ -87,34 +87,41 @@ class TaskController extends Controller
     }
 
     public function setSortOption(Request $request) {
-        session(['sortOption' => $request->input('sort_option')]);
+        //if curent sort option != request sort option
+        //offset = 0;
+        Session::put('searchOption', null);
+
+        if(Session::get('sortOption') != $request->input('sort_option')) {
+            Session::put('offset', 0);
+            Session::put('currentCount', 0);
+        }
+    
+        Session::put('sortOption', $request->input('sort_option'));
 
         return redirect('/profile');
     }
 
     public function search(Request $request) {
-        $searchOption = $request->input('search_option');
-        $user = auth()->user();
 
+        Session::put('sortOption', null);
 
-        $tasks = Task::where('user_id', $user->id)
-        ->where('title', 'ilike', '%'.$searchOption.'%')
-        ->get();
+        if(Session::get('searchOption') != $request->input('search_option')) {
+            Session::put('offset', 0);
+            Session::put('currentCount', 0);
+        }
 
-        return view('profile', [
-            'user' => $user,
-            'tasks' => $tasks
-        ]);
+        Session::put('searchOption', $request->input('search_option'));
+
+        return redirect('/profile');
     }
 
     public function forward() {
         $offset = session('offset');
+        $currentCount = session('currentCount');
 
-        if($offset) {
+        if(($offset+5) < $currentCount) {
             $offset+=5;
             session(['offset' => $offset]);
-        }else {
-            session(['offset' => 5]);
         }
 
         return redirect('/profile');
@@ -123,11 +130,18 @@ class TaskController extends Controller
     public function back() {
         $offset = session('offset');
 
-        if($offset && $offset > 0) {
+        if($offset > 0) {
             $offset-=5;
             session(['offset' => $offset]);
         }
 
+        return redirect('/profile');
+    }
+
+    public function reset() {
+        Session::put('sortOption', null);
+        Session::put('searchOption', null);
+        
         return redirect('/profile');
     }
 }

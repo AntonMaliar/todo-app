@@ -42,5 +42,7 @@ return [
     "Sub-Tasks List"=>"Список підзавдань",
     "Add Sub Task"=>"Додати підзавдання",
     "Create Sub Task"=>"Створити підзавдання",
-    "Enter sub task"=>"Введіть підзавдання"
+    "Enter sub task"=>"Введіть підзавдання",
+    "Task search"=>"Пошук завдання",
+    "Reset everything"=>"Cкинути все"
 ];

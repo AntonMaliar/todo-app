@@ -1,160 +1,283 @@
-/* Reset default margin and padding */
-body, h1, h2, ul, li, p {
+/* Reset some default styles */
+body, h1, p, ul, li {
     margin: 0;
     padding: 0;
 }
 
+/* Apply a background color to the body */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.container {
+/* Style the full-page container */
+.full-page-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #2c3e50; /* Midnight Blue */
+    color: #ecf0f1; /* Clouds White */
+}
+
+/* Style the content container */
+.content-container {
     text-align: center;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Style the language switch links */
+.language-switch a {
+    text-decoration: none;
+    color: #ecf0f1; /* Clouds White */
+    margin-right: 15px;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Style the language switch links on hover */
+.language-switch a:hover {
+    color: #bdc3c7; /* Silver */
+}
+
+/* Style the main links */
+.main-links {
+    margin-top: 20px;
+}
+
+.main-links a {
+    text-decoration: none;
+    color: #ecf0f1; /* Clouds White */
+    margin-right: 15px;
+    transition: color 0.3s ease-in-out;
+}
+
+.main-links a:hover {
+    color: #bdc3c7; /* Silver */
+}
+
+/* Style the header */
 h1 {
-    color: #333;
+    color: #3498db; /* Dodger Blue */
+    font-size: 36px;
     margin-bottom: 20px;
 }
 
+/* Style the profile info */
 .profile-info {
-    text-align: left;
+    margin-top: 20px;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.profile-field {
+    margin-bottom: 10px;
 }
 
-label {
-    display: block;
-    font-weight: bold;
-    color: #333;
+/* Style the action buttons */
+.action-buttons a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    text-decoration: none;
+    color: #ecf0f1; /* Clouds White */
+    background-color: #e74c3c; /* Alizarin Crimson */
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
 }
 
-#username {
-    color: #0074e4;
-    font-weight: bold;
+/* Style action buttons on hover */
+.action-buttons a:hover {
+    background-color: #c0392b; /* Darker Alizarin Crimson on hover */
 }
 
-/* General Button Styles */
-.button {
+/* Style the task list */
+.task-list {
+    margin-top: 30px;
+}
+
+/* Style the sort and search forms */
+.sort-form,
+.search-form {
+    margin-top: 10px;
+}
+
+.sort-form label,
+.search-form label {
+    margin-right: 10px;
+    color: #ecf0f1; /* Clouds White */
+}
+
+.sort-form select,
+.search-form input {
+    padding: 5px;
+    border: 1px solid #ecf0f1; /* Clouds White */
+    border-radius: 3px;
+}
+
+.sort-form button,
+.search-form button {
     padding: 5px 10px;
+    background-color: #e74c3c; /* Alizarin Crimson */
+    color: #ecf0f1; /* Clouds White */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    margin-right: 5px;
-    text-decoration: none;
-    display: inline-block;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.button:hover {
-    background-color: #0052b2;
-    color: #fff;
+.sort-form button:hover,
+.search-form button:hover {
+    background-color: #c0392b; /* Darker Alizarin Crimson on hover */
 }
 
-/* Specific Button Styles */
-.create-task-button,
-.edit-profile-button {
-    background-color: #0074e4;
-    color: #ffffff;
-}
-
-/* Styles for task list items */
-.task-list {
-    text-align: left;
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-}
-
-.task-list h2 {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.task-list ul {
+/* Style the task list */
+.task-ul {
     list-style-type: none;
-    padding: 0;
+    margin-top: 20px;
 }
 
-.task-list li {
-    padding: 10px;
-    border: 1px solid #ccc;
+/* Style the task list items */
+.task-li {
+    background-color: #fff; /* White */
+    border: 1px solid #ecf0f1; /* Clouds White */
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    padding: 15px;
     display: flex;
+    flex-direction: column; /* Display items in a column */
     justify-content: space-between;
     align-items: center;
 }
 
-.task-title {
-    color: #333;
+/* Style the task header */
+.task-header {
+    margin-bottom: 10px;
+}
+
+.task-header span {
+    font-size: 20px; /* Adjust font size for the task title */
+    color: #2c3e50; /* Midnight Blue */
     font-weight: bold;
 }
 
-/* Styles for in-progress tasks */
-.in-progress-task {
-    background-color: #F4D03F; /* Yellow */
-}
-
-.in-progress-task .task-title {
-    color: #3498DB; /* Blue */
-}
-
-.in-progress-task .complete-task-button {
-    display: block;
-}
-
-/* Styles for completed tasks */
-.completed-task {
-    background-color: #58D68D; /* Green */
-}
-
-completed-task .task-title {
-    color: #FF5733; /* Red */
-}
-
-completed-task .complete-task-button {
-    display: none;
-}
-
-completed-task span {
-    color: #58D68D; /* Green */
-}
-
-completed-task .edit-task-button,
-completed-task .delete-task-button {
-    background-color: #3498DB; /* Blue */
-}
-
-completed-task .edit-task-button:hover,
-completed-task .delete-task-button:hover {
-    background-color: #2874A6; /* Dark Blue */
-}
-
-/* Add a style for the "Open" button */
-.open-task-button {
-    padding: 10px 20px;
-    background-color: #0074e4;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* Style completed tasks */
+.completed {
+    color: #2ecc71; /* Emerald */
     font-weight: bold;
-    transition: background-color 0.3s ease;
+}
+
+/* Style task actions */
+.task-actions {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    margin-top: 10px;
+}
+
+/* Style compact task actions */
+.task-actions a {
     text-decoration: none;
-    display: inline-block; /* Display it as an inline element */
-    margin-right: 10px; /* Adjust the margin as needed */
+    color: #ecf0f1; /* Clouds White */
+    padding: 8px 12px; /* Adjust padding for smaller buttons */
+    margin-left: 5px; /* Add some spacing between buttons */
+    border-radius: 3px;
+    font-size: 14px; /* Adjust font size for smaller buttons */
+    transition: background-color 0.3s ease-in-out;
 }
 
-.open-task-button:hover {
-    background-color: #0052b2;
+/* Hover styles for compact task actions */
+.task-actions a:hover {
+    background-color: #3498db; /* Dodger Blue on hover */
+}
+
+/* Style specific action buttons */
+.task-actions .action-button {
+    background-color: #e74c3c; /* Alizarin Crimson */
+}
+
+.task-actions .action-button:hover {
+    background-color: #c0392b; /* Darker Alizarin Crimson on hover */
+}
+
+.task-actions .completed {
+    background-color: #2ecc71; /* Emerald */
+    color: #fff; /* White */
+}
+
+/* Style the navigation buttons */
+.navigation-buttons {
+    margin-top: 20px;
+}
+
+/* Style navigation buttons */
+.navigation-buttons a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    text-decoration: none;
+    color: #ecf0f1; /* Clouds White */
+    background-color: #3498db; /* Dodger Blue */
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Style navigation buttons on hover */
+.navigation-buttons a:hover {
+    background-color: #2980b9; /* Darker Dodger Blue on hover */
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 24px; /* Adjust font size for smaller screens */
+    }
+
+    .action-buttons a {
+        padding: 8px 16px; /* Adjust padding for smaller screens */
+        margin: 8px;
+    }
+
+    .task-actions a {
+        padding: 6px 10px; /* Adjust padding for smaller screens */
+        margin-left: 3px; /* Add some spacing between buttons */
+        font-size: 12px; /* Adjust font size for smaller screens */
+    }
+
+    .navigation-buttons a {
+        padding: 8px 16px; /* Adjust padding for smaller screens */
+        margin: 8px;
+    }
+}
+
+/* Your existing CSS styles here */
+
+/* Add styles for the scrolled state */
+.header.scrolled {
+    background-color: #2c3e50; /* Change background color when scrolled */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow when scrolled */
+    padding: 10px 0; /* Add padding when scrolled */
+}
+
+/* Add transition for a smooth effect */
+.header {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+/* Add styles for the scrolled state */
+.header.scrolled .language-switch a,
+.header.scrolled .main-links a {
+    color: #bdc3c7; /* Silver for links in scrolled state */
+}
+
+.header.scrolled h1 {
+    color: #3498db; /* Dodger Blue for h1 in scrolled state */
+}
+
+/* Adjust padding for smaller screens when scrolled */
+.header.scrolled .action-buttons a,
+.header.scrolled .navigation-buttons a {
+    padding: 8px 16px;
+}
+
+/* Adjust font size for smaller screens when scrolled */
+.header.scrolled .action-buttons a,
+.header.scrolled .task-actions a,
+.header.scrolled .navigation-buttons a {
+    font-size: 12px;
 }

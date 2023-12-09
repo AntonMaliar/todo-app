@@ -30,3 +30,5 @@ Route::get('/tasks/search', [TaskController::class, 'search']);
 
 Route::get('/forward', [TaskController::class, 'forward']);
 Route::get('/back', [TaskController::class, 'back']);
+
+Route::get("/reset", [TaskController::class, 'reset']);

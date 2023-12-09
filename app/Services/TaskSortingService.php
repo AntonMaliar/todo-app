@@ -13,6 +13,9 @@ class TaskSortingService {
         $sortOption = Session::get('sortOption');
         $offset = Session::get('offset');
         $userId = Auth::id();
+        //if curent sort option != request sort option
+        //offset = 0;
+
 
         switch ($sortOption) {
             case 'completed_asc':
@@ -33,6 +36,14 @@ class TaskSortingService {
     }
 
     private function completedAsc($userId, $offset) {
+
+        if(!Session::get('currentCount')) {
+            $currentCount = Task::where('user_id', $userId)
+            ->where('status', Status::COMPLETED)
+            ->count();
+            Session::put('currentCount', $currentCount);
+        }
+
         return Task::where('user_id', $userId)
         ->where('status', Status::COMPLETED)
         ->orderBy('title', 'asc')
@@ -42,6 +53,14 @@ class TaskSortingService {
     }
 
     private function completedDesc($userId, $offset) {
+
+        if(!Session::get('currentCount')) {
+            $currentCount = Task::where('user_id', $userId)
+            ->where('status', 'completed')
+            ->count();
+            Session::put('currentCount', $currentCount);
+        }
+
         return Task::where('user_id', $userId)
         ->where('status', 'completed')
         ->orderBy('title', 'desc')
@@ -51,6 +70,14 @@ class TaskSortingService {
     }
 
     private function inProgressAsc($userId, $offset) {
+
+        if(!Session::get('currentCount')) {
+            $currentCount = Task::where('user_id', $userId)
+            ->where('status', 'in progress')
+            ->count();
+            Session::put('currentCount', $currentCount);
+        }
+
         return Task::where('user_id', $userId)
         ->where('status', 'in progress')
         ->orderBy('title', 'asc')
@@ -60,6 +87,14 @@ class TaskSortingService {
     }
 
     private function inProgressDesc($userId, $offset) {
+
+        if(!Session::get('currentCount')) {
+            $currentCount = Task::where('user_id', $userId)
+            ->where('status', 'in progress')
+            ->count();
+            Session::put('currentCount', $currentCount);
+        }
+
         return Task::where('user_id', $userId)
         ->where('status', 'in progress')
         ->orderBy('title', 'desc')
@@ -69,6 +104,13 @@ class TaskSortingService {
     }
 
     private function nameAsc($userId, $offset) {
+
+        if(!Session::get('currentCount')) {
+            $currentCount = Task::where('user_id', $userId)
+            ->count();
+            Session::put('currentCount', $currentCount);
+        }
+
         return Task::where('user_id', $userId)
         ->orderBy('title', 'asc')
         ->limit(5)
@@ -77,6 +119,13 @@ class TaskSortingService {
     }
 
     private function nameDesc($userId, $offset) {
+
+        if(!Session::get('currentCount')) {
+            $currentCount = Task::where('user_id', $userId)
+            ->count();
+            Session::put('currentCount', $currentCount);
+        }
+
         return Task::where('user_id', $userId)
         ->orderBy('title', 'desc')
         ->limit(5)
@@ -85,6 +134,13 @@ class TaskSortingService {
     }
 
     private function defaultSort($userId, $offset) {
+
+        if(!Session::get('currentCount')) {
+            $currentCount = Task::where('user_id', $userId)
+            ->count();
+            Session::put('currentCount', $currentCount);
+        }
+
         return Task::where('user_id', $userId)
         ->orderBy('created_at', 'desc')
         ->limit(5)
