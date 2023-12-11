@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Session;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-require __DIR__.'../auth/auth.php';
-require __DIR__.'../user/user.php';
-require __DIR__.'../user/task.php';
-require __DIR__.'../user/sub-task.php';
+require __DIR__ . '/user/auth.php';
+require __DIR__ . '/user/user.php';
+require __DIR__ . '/user/task.php';
+require __DIR__ . '/user/sub-task.php';
 
 Route::get('/', function() {
     App::setLocale(Session::get('lang'));
