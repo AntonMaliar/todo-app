@@ -33,9 +33,15 @@
                 <a href="/edit-profile" class="action-button">{{ __('app.Edit Profile') }}</a>
             </div>
 
-            @if($tasks->isNotEmpty())
                 <div class="task-list">
+
+                <form action="/reset" method="get" class="search-form">
+                        <button type="submit" class="action-button">{{ __('app.Reset everything') }}</button>
+                    </form>
+
                     <h2>{{ __('app.Task List') }}</h2>
+                    
+                    @if($tasks->isNotEmpty())
 
                     <form action="/tasks/search" method="get" class="search-form">
                         <label id="task_search">{{__('app.Task search')}}:</label>
@@ -43,10 +49,6 @@
                         <button type="submit" class="action-button">{{ __('app.Search') }}</button>
                     </form>
 
-                    <form action="/reset" method="get" class="search-form">
-                        <button type="submit" class="action-button">{{ __('app.Reset everything') }}</button>
-                    </form>
-        
                     <form action="/tasks/sort" method="get" class="sort-form">
                         <label for="sort-option">{{ __('app.Sort By') }}:</label>
                         <select id="sort-option" name="sort_option">
