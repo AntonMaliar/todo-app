@@ -21,7 +21,7 @@ class TaskController extends Controller
                 'description' => $request->description,
                 'reminder' => $request->reminder,
             ]));
-
+        Session::put("currentCount", null);
         return redirect('/profile');
     }
 
@@ -138,6 +138,7 @@ class TaskController extends Controller
     public function reset() {
         Session::put('sortOption', null);
         Session::put('searchOption', null);
+        Session::put("currentCount", null);
 
         return redirect('/profile');
     }

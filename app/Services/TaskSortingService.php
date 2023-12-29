@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Task;
 use App\Models\Util\Status;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class TaskSortingService {
@@ -140,7 +141,7 @@ class TaskSortingService {
             ->count();
             Session::put('currentCount', $currentCount);
         }
-
+        Log::info(Session::get('currentCount'));
         return Task::where('user_id', $userId)
         ->orderBy('created_at', 'desc')
         ->limit(5)
